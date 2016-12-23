@@ -19,18 +19,24 @@ clearLCDLines () {
 
 void
 clearAllIME () {
-	SensorValue[I2C_1] = 
-	SensorValue[I2C_2] = 
-	SensorValue[I2C_3] = 
-	SensorValue[I2C_4] = 
-	SensorValue[I2C_5] = 
-	SensorValue[I2C_6] = 
-	SensorValue[I2C_7] = 
+	SensorValue[I2C_1] =
+	SensorValue[I2C_2] =
+	SensorValue[I2C_3] =
+	SensorValue[I2C_4] =
+	SensorValue[I2C_5] =
+	SensorValue[I2C_6] =
+	SensorValue[I2C_7] =
 	SensorValue[I2C_8] = 0;
+}
+
+void
+waitForReleased7D () {
+	while (vexRT[Btn7D]){} wait1Msec(25);
 }
 
 task
 main() {
+	clearDebugStream();
 	clearLCDLines();
 	initIO();
 	allMotorsOff();
@@ -87,7 +93,7 @@ main() {
 
 void
 allMotorsOff() {
-	for (int i = 0; i < 10; i++) 
+	for (int i = 0; i < 10; i++)
 		motor[i] = 0;
 }
 
