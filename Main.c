@@ -20,6 +20,7 @@
 #pragma userControlDuration(120)
 #include "Mod_Vex_Comp_Control.c"
 #include "motor.h"
+#include "RerunFunctions.c"
 
 int iDes;
 void
@@ -27,7 +28,7 @@ armControl (bool bSpeedBoost, bool bBtnUp, bool bBtnDown) {
 	int iOutput;
 	if (bBtnUp || bBtnDown) {
 		iOutput = bSpeedBoost ? (bBtnUp - bBtnDown) * 127 : (bBtnUp - bBtnDown) * 60;
-		iDes = (SensorValue[I2C_1] + SensorValue[I2C_2]) / 2;
+		iDes = (SensorValue[I2C_1] + -SensorValue[I2C_2]) / 2;
 	} else {
 		iOutput = iArmPID(iDes);
 	}
@@ -36,7 +37,7 @@ armControl (bool bSpeedBoost, bool bBtnUp, bool bBtnDown) {
 
 void
 initIO () {
-	bPlaySounds = true;	
+	bPlaySounds = true;
 
 	while (SensorValue[powerExpanderBattery] < 250) {
 		displayLCDCenteredString(0, "PLUG IN POWER");
@@ -59,12 +60,17 @@ task
 autonomous () {
 }
 
-task 
+task
 usercontrol () {
 	while (true) {
 		tank       ( (vexRT[Ch3]), (vexRT[Ch2]) );
 		armControl ( vexRT[Btn6D], vexRT[Btn6U], vexRT[Btn5U] );
-		
+
 		SensorValue[pincer] = vexRT[Btn5D];
+		
+		if (vexRT[Btn7D]) {
+			waitForReleased7D();
+			startTask(record);
+		}
 	}
 }
