@@ -9,7 +9,6 @@ typedef struct {
 	float derivative;
 	float lastError;
 	float threshold;
-	int   deltaTime;
 	int   lastTime;
 } pid;
 
@@ -31,42 +30,39 @@ int MC29[128] = {
 
 void
 tank (int iSpeedL, int iSpeedR) {
-	motor[chassis_l1] = 
+	motor[chassis_l1] =
 	motor[chassis_l2] = sgn(iSpeedL) * MC29[abs(clipNum(iSpeedL, 127, -127))];
-	motor[chassis_r1] = 
+	motor[chassis_r1] =
 	motor[chassis_r2] = sgn(iSpeedR) * MC29[abs(clipNum(iSpeedR, 127, -127))];
 }
 
 void
 arm (int iSpeed) {
-	motor[arm_l1] = 
-	motor[arm_l2] = 
-	motor[arm_l3] = 
-	motor[arm_r1] = 
-	motor[arm_r2] = 
+	motor[arm_l1] =
+	motor[arm_l2] =
+	motor[arm_l3] =
+	motor[arm_r1] =
+	motor[arm_r2] =
 	motor[arm_r3] = clipNum(iSpeed, 127, -127);
 }
 
 pid sArmPID;
 
 int iArmPID (int iDes) {
-	const float kP = 0.5; 
-	const float kD = 0.4;
-	
-	sArmPID.current   = (SensorValue[I2C_1] + SensorValue[I2C_2]) / 2;
-	
-	sArmPID.error     = sArmPID.current - iDes;
-	sArmPID.deltaTime = nPgmTime - sArmPID.lastTime;
-	
-	if (sArmPID.deltaTime == 0)
-		sArmPID.derivative = 0;
-	else
-		sArmPID.derivative = (sArmPID.error - sArmPID.lastError) / sArmPID.deltaTime;
-	
+	const float kP      = 0.7;
+	const float kD      = 0.4;
+	const int deltaTime = 10;
+
+	sArmPID.current   = (SensorValue[I2C_1] + -SensorValue[I2C_2]) / 2;
+
+	sArmPID.error     = iDes - sArmPID.current;
+	sArmPID.derivative = (sArmPID.error - sArmPID.lastError) / deltaTime;
+
 	return ( (sArmPID.error * kP) + (sArmPID.derivative * kD) );
-		
-	sArmPID.lastTime  = nPgmTime;
+
 	sArmPID.lastError = sArmPID.error;
+
+	delay(10);
 }
 
 int iArmPID (int iDes, int iMaxSpeed) {
