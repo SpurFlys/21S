@@ -14,8 +14,17 @@ record () {
 	}
 }
 
+int s;
 void
 auton (int iArmDes, int iArmSpeed) {
-	arm(iArmPID (iArmDes, iArmSpeed));
-	delay(100);
+	for (int i = 0; i < 100; i++) {
+		arm(iArmPID (iArmDes, iArmSpeed));
+		delay(1);
+	}
+	if (s == 10) {
+		writeDebugStream("\n");
+		s = 0;
+	}
+	writeDebugStream ("\n auton (%i, %i);", (SensorValue[I2C_1] + -SensorValue[I2C_2]) / 2, motor[arm_l1]);
+	s++;
 }
