@@ -49,20 +49,17 @@ arm (int iSpeed) {
 pid sArmPID;
 
 int iArmPID (int iDes) {
-	const float kP      = 0.7;
-	const float kD      = 0.4;
-	const int deltaTime = 10;
+	const float kP = 0.7;
+	const float kD = 0.9;
 
-	sArmPID.current   = (SensorValue[I2C_1] + -SensorValue[I2C_2]) / 2;
+	sArmPID.current    = (SensorValue[I2C_1] + -SensorValue[I2C_2]) / 2;
 
-	sArmPID.error     = iDes - sArmPID.current;
-	sArmPID.derivative = (sArmPID.error - sArmPID.lastError) / deltaTime;
+	sArmPID.error      = iDes - sArmPID.current;
+	sArmPID.derivative = sArmPID.error - sArmPID.lastError;
 
 	return ( (sArmPID.error * kP) + (sArmPID.derivative * kD) );
 
 	sArmPID.lastError = sArmPID.error;
-
-	delay(10);
 }
 
 int iArmPID (int iDes, int iMaxSpeed) {
