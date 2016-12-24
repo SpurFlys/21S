@@ -58,6 +58,185 @@ pre_auton () {
 
 task
 autonomous () {
+	/* 1 Second(s) */
+	auton (19, 3);
+	auton (19, 3);
+	auton (19, 3);
+	auton (19, 3);
+	auton (19, 3);
+	auton (19, 3);
+	auton (19, 3);
+	auton (19, 3);
+	auton (21, 60);
+	auton (57, 127);
+
+	/* 2 Second(s) */
+	auton (112, 127);
+	auton (184, 127);
+	auton (256, 127);
+	auton (325, 127);
+	auton (395, 127);
+	auton (468, -1);
+	auton (481, -19);
+	auton (477, -14);
+	auton (462, 5);
+	auton (449, 22);
+
+	/* 3 Second(s) */
+	auton (449, 22);
+	auton (421, -127);
+	auton (342, -127);
+	auton (241, -127);
+	auton (118, 6);
+	auton (74, 63);
+	auton (95, 36);
+	auton (128, -6);
+	auton (126, -3);
+	auton (115, 10);
+
+	/* 4 Second(s) */
+	auton (111, 15);
+	auton (114, 60);
+	auton (135, 127);
+	auton (184, 127);
+	auton (249, 127);
+	auton (316, 127);
+	auton (386, 127);
+	auton (458, 127);
+	auton (530, 127);
+	auton (549, -24);
+
+	/* 5 Second(s) */
+	auton (544, -18);
+	auton (532, -2);
+	auton (519, 14);
+	auton (515, 19);
+	auton (515, 19);
+	auton (515, 19);
+	auton (515, 19);
+	auton (515, 19);
+	auton (515, 19);
+	auton (477, -60);
+
+	/* 6 Second(s) */
+	auton (408, -60);
+	auton (325, -60);
+	auton (211, -60);
+	auton (89, 5);
+	auton (53, 53);
+	auton (85, 10);
+	auton (93, 0);
+	auton (89, 60);
+	auton (98, 60);
+	auton (130, 60);
+
+	/* 7 Second(s) */
+	auton (169, 60);
+	auton (208, 60);
+	auton (247, 60);
+	auton (284, 60);
+	auton (318, 60);
+	auton (354, 60);
+	auton (390, 60);
+	auton (429, 60);
+	auton (469, 60);
+	auton (509, 60);
+
+	/* 8 Second(s) */
+	auton (553, 60);
+	auton (570, -13);
+	auton (570, -13);
+	auton (567, -9);
+	auton (553, 9);
+	auton (546, 18);
+	auton (546, 18);
+	auton (546, 18);
+	auton (546, 18);
+	auton (546, 18);
+
+	/* 9 Second(s) */
+	auton (546, 18);
+	auton (546, 18);
+	auton (546, 18);
+	auton (496, -127);
+	auton (416, -127);
+	auton (312, -127);
+	auton (186, -127);
+	auton (59, -127);
+	auton (-38, -60);
+	auton (-29, -11);
+
+	/* 10 Second(s) */
+	auton (-26, -15);
+	auton (-26, -15);
+	auton (-26, -15);
+	auton (10, 127);
+	auton (76, 127);
+	auton (142, 127);
+	auton (217, 127);
+	auton (289, 127);
+	auton (359, 127);
+	auton (375, -19);
+
+	/* 11 Second(s) */
+	auton (401, 60);
+	auton (423, 60);
+	auton (449, 60);
+	auton (484, -2);
+	auton (491, -11);
+	auton (490, -10);
+	auton (478, 5);
+	auton (467, 19);
+	auton (467, 19);
+	auton (467, 19);
+
+	/* 12 Second(s) */
+	auton (461, -60);
+	auton (410, -60);
+	auton (338, -60);
+	auton (296, 48);
+	auton (302, 41);
+	auton (318, 20);
+	auton (318, 20);
+	auton (323, 14);
+	auton (325, 11);
+	auton (324, 13);
+
+	/* 13 Second(s) */
+	auton (324, 13);
+	auton (324, 13);
+	auton (324, 13);
+	auton (324, 13);
+	auton (324, 13);
+	auton (324, 13);
+	auton (324, 13);
+	auton (308, -60);
+	auton (247, -60);
+	auton (168, -60);
+
+	/* 14 Second(s) */
+	auton (52, -60);
+	auton (-37, -60);
+	auton (-37, -60);
+	auton (-29, -10);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+
+	/* 15 Second(s) */
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
+	auton (-26, -14);
 }
 
 task
