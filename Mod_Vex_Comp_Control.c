@@ -36,11 +36,11 @@ waitForReleased7D () {
 
 task
 main() {
+	bLCDBacklight = true;
 	clearDebugStream();
 	clearLCDLines();
 	initIO();
 	allMotorsOff();
-	bLCDBacklight = true;
 	displayLCDCenteredString(0, sTeam);
 	displayLCDCenteredString(1,  "Starting . . .");
 	wait1Msec(2000);
