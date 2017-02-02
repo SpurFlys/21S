@@ -1,3 +1,5 @@
+#pragma systemfile
+
 typedef struct {
 	float current;
 	float kP;
@@ -12,7 +14,7 @@ typedef struct {
 	int   lastTime;
 } pid;
 
-int MC29[128] = {
+int MC29[ 128 ] = {
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 13, 13, 14,
 	14, 14, 14, 15, 15, 15, 15, 16, 16, 16,
@@ -29,28 +31,45 @@ int MC29[128] = {
 };
 
 void
-tank (int iSpeedL, int iSpeedR) {
-	motor[chassis_l1] =
-	motor[chassis_l2] = sgn(iSpeedL) * MC29[abs(clipNum(iSpeedL, 127, -127))];
-	motor[chassis_r1] =
-	motor[chassis_r2] = sgn(iSpeedR) * MC29[abs(clipNum(iSpeedR, 127, -127))];
+tank( int iSpeedL, int iSpeedR ) {
+	motor[ chassis_l ] = sgn(iSpeedL) * MC29[abs(clipNum(iSpeedL, 127, -127))];
+	motor[ chassis_r ] = sgn(iSpeedR) * MC29[abs(clipNum(iSpeedR, 127, -127))];
 }
 
 void
-arm (int iSpeed) {
-	motor[arm_l1] =
-	motor[arm_l2] =
-	motor[arm_l3] =
-	motor[arm_r1] =
-	motor[arm_r2] =
-	motor[arm_r3] = clipNum(iSpeed, 127, -127);
+tankWithoutTrueSpeed( int iSpeedL, int iSpeedR ) {
+	motor[ chassis_l ] = clipNum( iSpeedL, 127, -127 );
+	motor[ chassis_r ] = clipNum( iSpeedL, 127, -127 );
+}
+
+void
+invertTank( int iSpeedR, int iSpeedL ) {
+	motor[ chassis_l ] = sgn(iSpeedL) * MC29[abs(clipNum(iSpeedL, 127, -127))];
+	motor[ chassis_r ] = sgn(iSpeedR) * MC29[abs(clipNum(iSpeedR, 127, -127))];
+}
+
+void
+invertTankWithoutTrueSpeed( int iSpeedR, int iSpeedL ) {
+	motor[ chassis_l ] = clipNum( iSpeedL, 127, -127 );
+	motor[ chassis_r ] = clipNum( iSpeedL, 127, -127 );
+}
+
+void
+arm( int iSpeed ) {
+	motor[ arm_l1 ] =
+	motor[ arm_l2 ] =
+	motor[ arm_l3 ] =
+	motor[ arm_r1 ] =
+	motor[ arm_r2 ] =
+	motor[ arm_r3 ] = clipNum( iSpeed, 127, -127 );
 }
 
 pid sArmPID;
 
-int iArmPID (int iDes) {
-	const float kP = 0.7;
-	const float kD = 0.9;
+int
+iArmPID( int iDes ) {
+	const float kP = 0.5;
+	const float kD = 0.3;
 
 	sArmPID.current    = (SensorValue[I2C_1] + -SensorValue[I2C_2]) / 2;
 
@@ -60,8 +79,4 @@ int iArmPID (int iDes) {
 	return ( (sArmPID.error * kP) + (sArmPID.derivative * kD) );
 
 	sArmPID.lastError = sArmPID.error;
-}
-
-int iArmPID (int iDes, int iMaxSpeed) {
-	return ( clipNum(iArmPID(iDes), abs(iMaxSpeed), -abs(iMaxSpeed)) );
 }
